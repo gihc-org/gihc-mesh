@@ -4,6 +4,81 @@ Prioriteret plan for en første GIHC mini-mesh-prototype. Rækkefølgen er
 vigtig: lokal kommunikation og dataintegritet kommer før LoRa,
 multi-hop-routing og strømoptimering.
 
+## Handover-prompt
+
+Teksten nedenfor kan indsættes som første besked i en ny Codex-session, når
+den kører med de nødvendige tilladelser:
+
+```text
+Du overtager arbejdet i /home/kristian/projects/gihc-mesh.
+
+Projektet er GIHC Mini-Mesh: en statisk projektside, systemanalyse og senere
+en ESP32/iroh-prototype. Læs README.md, ANALYSE.md og TODO.md, før du ændrer
+noget.
+
+Aktuel status:
+- Repositoryet bruger branch main og har origin git@github.com:gihc-org/gihc-mesh.git.
+- Første commit er pushet. Kontrollér selv HEAD og origin/main; arbejdstræet
+  var rent ved overdragelsen.
+- Eleventy-siden, Dockerfile, nginx.conf, k8s-manifester, DNS-script,
+  deploy-script, smoke-test og GitHub Actions-workflowet er på plads.
+- npm run check, npm audit --offline, HTML-kontrol og kubectl kustomize er
+  tidligere gennemført uden fejl.
+- GitHub Actions-workflowet "Publish mini-mesh image" blev udløst af pushet,
+  men resultatet er ikke verificeret i denne session.
+- A-recorden mesh.gihc.online er ikke bekræftet oprettet.
+- Workloaden er ikke bekræftet deployeret til k3s.
+
+Din opgave er at færdiggøre den offentlige udgivelse af
+https://mesh.gihc.online uden at ændre ../gihc.
+
+Gør følgende i rækkefølge:
+1. Kontrollér git status, HEAD, origin/main og at arbejdstræet er rent.
+2. Kontrollér GitHub Actions-runnet for seneste main. Vent på, at build,
+   Trivy-scan og push til ghcr.io/gihc-org/gihc-mesh er gennemført.
+3. Kontrollér, at imageet kan hentes af k3s. GHCR-pakken skal enten være
+   offentlig, eller der skal være et eksisterende imagePullSecret. Læs eller
+   skriv aldrig credentials til output, commits eller logfiler.
+4. Kør npm run check, bash -n scripts/*.sh og kubectl kustomize k8s/.
+5. Opret A-recorden med ./scripts/create-dns-record.sh. Kontrollér med dig,
+   at mesh.gihc.online peger på den forventede VPS.
+6. Genbrug en eksisterende k3s-tunnel, hvis den virker. Ellers åbn den
+   dokumenterede tunnel på 16443 og deploy med det publicerede SHA-image:
+
+   IMAGE=ghcr.io/gihc-org/gihc-mesh:<publiceret-sha> \
+   IMAGE_PULL_POLICY=IfNotPresent \
+   KUBECTL_SERVER=https://127.0.0.1:16443 \
+   ./scripts/deploy.sh
+
+7. Kontrollér rollout, pods, ingress og certifikatet
+   mesh-gihc-online-tls. Kør derefter:
+
+   ./scripts/smoke-test.sh https://mesh.gihc.online
+
+8. Når deployen virker, opdater k8s/deployment.yaml fra :latest til det
+   konkrete publicerede SHA-image og imagePullPolicy: IfNotPresent. Commit og
+   push ændringen på main.
+9. Verificér til sidst Git-status, Actions og den offentlige URL igen.
+
+Afgrænsning:
+- Ændr kun /home/kristian/projects/gihc-mesh.
+- Ændr ikke ../gihc eller det eksisterende gihc.online-site.
+- Commit ikke node_modules, _site, credentials, private nøgler eller lokale
+  kubeconfig-filer.
+- Slet ikke eksisterende DNS-records, deployments eller tunneler.
+- Hvis en ekstern handling fejler, skal du rapportere den præcise kommando og
+  fejl i stedet for at antage, at den lykkedes.
+
+Færdigkriterier:
+- GitHub Actions-runnet for main er grønt, og imageet findes.
+- mesh.gihc.online har korrekt A-record.
+- Deploymentet er klar, og TLS-certifikatet er Ready=True.
+- https://mesh.gihc.online og /en/ svarer korrekt.
+- smoke-testen består.
+- deployment.yaml peger på et SHA-image.
+- Ændringerne er committet og pushet, og arbejdstræet er rent.
+```
+
 ## Infrastruktur og offentlig side
 
 - [x] Byg den statiske side med samme Eleventy-mønster som `../gihc`.
@@ -11,12 +86,13 @@ multi-hop-routing og strømoptimering.
   socialt previewbillede.
 - [x] Tilføj Dockerfile, Nginx-konfiguration og statiske smoke-tests.
 - [x] Tilføj Kubernetes-manifester og DNS-script for `mesh.gihc.online`.
-- [ ] Opret GitHub-repository og push `main`, så image-workflowet kan køre.
-- [ ] Opret A-recorden `mesh.gihc.online` hos Simply.com.
-- [ ] Deploy `ghcr.io/gihc-org/gihc-mesh` til k3s-namespace `gihc-mesh`.
-- [ ] Kontrollér cert-manager-certifikatet for `mesh.gihc.online`.
-- [ ] Kør `./scripts/smoke-test.sh https://mesh.gihc.online`.
-- [ ] Pin det første publicerede image med commit-SHA i
+- [x] Opret GitHub-repository og push `main`, så image-workflowet kan køre.
+- [x] Kontrollér at image-workflowet er grønt og imageet kan hentes.
+- [x] Opret A-recorden `mesh.gihc.online` hos Simply.com.
+- [x] Deploy `ghcr.io/gihc-org/gihc-mesh` til k3s-namespace `gihc-mesh`.
+- [x] Kontrollér cert-manager-certifikatet for `mesh.gihc.online`.
+- [x] Kør `./scripts/smoke-test.sh https://mesh.gihc.online`.
+- [x] Pin det første publicerede image med commit-SHA i
   `k8s/deployment.yaml`.
 
 ## 0. Beslutninger og afklaring
