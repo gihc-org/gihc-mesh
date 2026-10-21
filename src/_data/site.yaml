@@ -1,0 +1,430 @@
+da:
+  locale: da
+  path: /
+  languageSwitch:
+    label: English
+    lang: en
+    href: /en/
+    ariaLabel: Skift til engelsk
+  ui:
+    skipLink: Spring til indhold
+    homeLabel: GIHC Mini-Mesh, gå til forsiden
+    navigationLabel: Hovednavigation
+  meta:
+    lang: da
+    title: GIHC Mini-Mesh — Budstikken
+    description: Et lille, robust netværk til øvelser og beredskab. ESP32 i felten, Rust og iroh mellem lokale hubs.
+    themeColor: "#f3eddd"
+    siteUrl: https://mesh.gihc.online
+    socialTitle: GIHC Mini-Mesh — Et lille net, der holder
+    socialDescription: ESP32, lokal radio, Rust og iroh. Et feltprojekt fra GIHC.
+    socialImage: https://mesh.gihc.online/assets/mesh-og.png
+    socialImageAlt: Et netværksdiagram med tre ESP32-knuder, en lokal hub og en iroh-forbindelse
+  brand:
+    project: Mini-Mesh
+    note: Feltprojekt 002
+    logo: /assets/gihc-emblem.svg
+  nav:
+    - label: Idéen
+      href: "#ideen"
+    - label: Arkitektur
+      href: "#arkitektur"
+    - label: Prototypen
+      href: "#prototypen"
+    - label: Vær med
+      href: "#vaer-med"
+      className: nav-cta
+  hero:
+    eyebrowBadge: Et GIHC-eksperiment
+    eyebrowNote: "· Offline først · Åbent i tanken"
+    titleLines:
+      - text: Et lille net,
+      - text: der holder,
+      - text: når det store falder.
+        className: hero-emphasis
+    intro: Vi bygger en mini-mesh-knude på ESP32 og forbinder lokale hubs med Rust og iroh. Den skal virke i skoven, på lejren og den dag, hvor internettet ikke gør.
+    primaryAction:
+      label: Se arkitekturen
+      href: "#arkitektur"
+      icon: "↘"
+    secondaryAction:
+      label: Følg prototypeplanen
+      href: "#prototypen"
+      icon: "→"
+    facts:
+      - Virker uden internet
+      - Bygget af små fejl
+      - Kan forklares ved bålet
+    poster:
+      note: Netkort / feltnote 002
+      center: Lokal hub
+      nodes:
+        - Knude A
+        - Knude B
+        - Knude C
+      transport: ESP-NOW
+      sync: iroh / QUIC
+      coordinate: 55° N / 12° E
+  status:
+    label: Projektstatus
+    value: Idé og systemdesign
+    detail: Næste skridt er tre fysiske knuder, én hub og en fungerende offline-demo.
+    facts:
+      - label: Første mål
+        value: 3 knuder
+      - label: Uden net
+        value: 24 timer
+      - label: Lang rækkevidde
+        value: Fase 2
+  principles:
+    index: 01 / Udgangspunktet
+    heading:
+      before: Småt nok til at
+      emphasis: forstå.
+    intro: Målet er ikke at genopfinde internettet. Målet er at gøre de første vigtige forbindelser enkle, synlige og mulige at øve.
+    cards:
+      - number: "01"
+        title: Offline først
+        text: Netværket skal give mening, når der hverken er Wi-Fi, mobilnet eller strøm fra stikkontakten.
+      - number: "02"
+        title: To hastigheder
+        text: ESP32 klarer det nære og strømfølsomme. En Linux-hub tager den tungere synkronisering med iroh.
+      - number: "03"
+        title: Fejl må smitte lidt
+        text: En knude må gerne genstarte alene. Historikken skal kunne findes igen, når batteriet kommer tilbage.
+  story:
+    index: 02 / Idéen
+    heading:
+      before: En digital
+      emphasis: budstikke.
+    lead: Under en lejr får deltagerne hver en lille knude med skærm, knap og batteri. De kan sende korte beskeder, finde poster og registrere fund, selv når der ikke er net.
+    body: Om aftenen samler en hub historikken. Når der senere igen er forbindelse, sendes den videre til en anden hub gennem iroh. Hver hændelse er signeret, kan ikke ændres ubemærket og kan modtages igen uden at skabe dubletter.
+    noteLabel: Arbejdstitel
+    noteValue: Budstikken
+    useCases:
+      - title: Beskeder
+        text: Et check-in, en kort besked eller et spørgsmål til gruppen.
+      - title: Skattejagt
+        text: Poster, ledetråde og fund bliver en fysisk leg med digital hukommelse.
+      - title: CTF
+        text: Knuder udveksler tokens, når deltagerne mødes i den virkelige verden.
+  architecture:
+    index: 03 / Arkitektur
+    heading:
+      before: Radio i hånden.
+      emphasis: Iroh i hubben.
+    intro: iroh er ikke et batteridrevet radio-mesh, og ESP32 er ikke en naturlig iroh-runtime. Derfor har lagene forskellige opgaver.
+    flow:
+      - label: ESP32-knude
+        detail: knap · skærm · batteri
+      - label: Lokal radio
+        detail: ESP-NOW eller BLE
+      - label: Linux-hub
+        detail: Rust · lokal log
+      - label: Iroh
+        detail: QUIC · synkronisering
+    roles:
+      - number: "A"
+        title: Knuden sanser
+        text: ESP32 læser knapper og sensorer, viser status og gemmer en lille lokal kø.
+      - number: "B"
+        title: Hubben husker
+        text: En lokal Linux-maskine validerer, deduplikerer og bevarer historikken uden internet.
+      - number: "C"
+        title: Iroh forbinder
+        text: Når to hubs kan nå hinanden, replikeres det nye indhold krypteret og genoptageligt.
+    limitationLabel: Vigtig afgrænsning
+    limitation: Første version bruger stjernetopologi omkring en hub. Multi-hop-routing og LoRa kommer først, når den grundlæggende kæde er stabil.
+  build:
+    index: 04 / Prototypen
+    heading:
+      before: Først den lille
+      emphasis: sejr.
+    intro: Vi bygger ikke hele beredskabsnettet på én aften. Vi bygger den korteste vej fra et knaptryk til en historik, der stadig findes i morgen.
+    hardware:
+      title: Hardware i første spor
+      items:
+        - ESP32-C6
+        - 2,9" e-ink
+        - 18650 eller LiFePO4
+        - Raspberry Pi Zero 2 W
+        - SX1262 senere
+    roadmap:
+      - step: "01"
+        title: Knuden vågner
+        text: Blink, knap, skærm og data, der overlever en genstart.
+      - step: "02"
+        title: Radio virker
+        text: Tre knuder sender til en hub gennem ESP-NOW.
+      - step: "03"
+        title: Historikken signeres
+        text: Firmware og Rust-hub bliver enige om et kompakt hændelsesformat.
+      - step: "04"
+        title: Hubs synkroniserer
+        text: To lokale hubs udveksler historik gennem iroh og tåler afbrydelser.
+    warningLabel: Ikke i første version
+    warning: Realtidslyd, video, billeder over LoRa eller et generelt internet-mesh. Først skal vi kunne sende en lille besked hele vejen hjem.
+  docs:
+    index: 05 / Arbejdsbogen
+    heading:
+      before: Bygget i det
+      emphasis: åbne.
+    intro: Retningen, risici og næste skridt står i projektets dokumenter. De er skrevet til at kunne bruges i en workshop og ændres, når målingerne begynder.
+    cards:
+      - title: README
+        text: Formål, arkitektur, hardware og den første milestone.
+        href: https://github.com/gihc-org/gihc-mesh/blob/main/README.md
+      - title: Analyse
+        text: Transportvalg, datamodel, sikkerhed og tekniske fravalg.
+        href: https://github.com/gihc-org/gihc-mesh/blob/main/ANALYSE.md
+      - title: TODO
+        text: En prioriteret vej fra hardware-spike til felt-test.
+        href: https://github.com/gihc-org/gihc-mesh/blob/main/TODO.md
+  join:
+    index: 06 / Vær med
+    heading:
+      before: Et net bliver først sjovt,
+      emphasis: når nogen er på det.
+    lead: Mini-mesh er et projekt under GIHC. Det udvikles i små iterationer og skal kunne forklares, bygges og fejlfindes af familier og nysgerrige sammen.
+    points:
+      - label: Ingen forkundskaber
+        text: Nysgerrighed er nok.
+      - label: Børn og voksne
+        text: bygger og tester sammen.
+      - label: Lokalt først
+        text: hver celle kan lave sin egen hub.
+    github:
+      label: Følg GIHC på GitHub
+      href: https://github.com/gihc-org
+    contactLabel: Skriv til GIHC
+    contactHref: mailto:mail@gihc.online
+    contact: mail@gihc.online
+    parentLabel: Om GIHC
+    parentHref: https://gihc.online
+  footer:
+    tagline: Et feltprojekt om små netværk, tydelige grænser og rigtige erfaringer.
+    credit: GIHC-logo af Eva & Peter Nygaard
+    links:
+      - label: Til toppen ↑
+        href: "#main"
+      - label: GIHC ↗
+        href: https://gihc.online
+        external: true
+      - label: GitHub ↗
+        href: https://github.com/gihc-org
+        external: true
+en:
+  locale: en
+  path: /en/
+  languageSwitch:
+    label: Dansk
+    lang: da
+    href: /
+    ariaLabel: Switch to Danish
+  ui:
+    skipLink: Skip to content
+    homeLabel: GIHC Mini-Mesh, go to the home page
+    navigationLabel: Main navigation
+  meta:
+    lang: en
+    title: GIHC Mini-Mesh — The Message Stick
+    description: A small, resilient network for practice and preparedness. ESP32 in the field, Rust and iroh between local hubs.
+    themeColor: "#f3eddd"
+    siteUrl: https://mesh.gihc.online
+    socialTitle: GIHC Mini-Mesh — A small network that holds
+    socialDescription: ESP32, local radio, Rust and iroh. A field project from GIHC.
+    socialImage: https://mesh.gihc.online/assets/mesh-og.png
+    socialImageAlt: A network diagram with three ESP32 nodes, a local hub and an iroh connection
+  brand:
+    project: Mini-Mesh
+    note: Field project 002
+    logo: /assets/gihc-emblem.svg
+  nav:
+    - label: The idea
+      href: "#ideen"
+    - label: Architecture
+      href: "#arkitektur"
+    - label: Prototype
+      href: "#prototypen"
+    - label: Join in
+      href: "#vaer-med"
+      className: nav-cta
+  hero:
+    eyebrowBadge: A GIHC experiment
+    eyebrowNote: "· Offline first · Open in spirit"
+    titleLines:
+      - text: A small network,
+      - text: one that holds,
+      - text: when the big one falls.
+        className: hero-emphasis
+    intro: We are building a mini-mesh node on ESP32 and connecting local hubs with Rust and iroh. It should work in the woods, at camp and on the day the internet does not.
+    primaryAction:
+      label: See the architecture
+      href: "#arkitektur"
+      icon: "↘"
+    secondaryAction:
+      label: Follow the prototype plan
+      href: "#prototypen"
+      icon: "→"
+    facts:
+      - Works without internet
+      - Built from small failures
+      - Explainable around a campfire
+    poster:
+      note: Network map / field note 002
+      center: Local hub
+      nodes:
+        - Node A
+        - Node B
+        - Node C
+      transport: ESP-NOW
+      sync: iroh / QUIC
+      coordinate: 55° N / 12° E
+  status:
+    label: Project status
+    value: Idea and system design
+    detail: The next step is three physical nodes, one hub and a working offline demo.
+    facts:
+      - label: First target
+        value: 3 nodes
+      - label: Offline
+        value: 24 hours
+      - label: Long range
+        value: Phase 2
+  principles:
+    index: 01 / Starting point
+    heading:
+      before: Small enough to
+      emphasis: understand.
+    intro: The goal is not to reinvent the internet. It is to make the first important connections simple, visible and possible to practise.
+    cards:
+      - number: "01"
+        title: Offline first
+        text: The network must make sense without Wi-Fi, mobile coverage or mains power.
+      - number: "02"
+        title: Two speeds
+        text: ESP32 handles the nearby and power-sensitive work. A Linux hub handles heavier synchronisation with iroh.
+      - number: "03"
+        title: Failures stay small
+        text: One node should be able to restart alone. Its history must return when the battery comes back.
+  story:
+    index: 02 / The idea
+    heading:
+      before: A digital
+      emphasis: message stick.
+    lead: At camp, each participant gets a small node with a screen, a button and a battery. They can send short messages, find checkpoints and record discoveries without a network.
+    body: In the evening, a hub collects the history. When connectivity returns, it is passed to another hub through iroh. Every event is signed, cannot be changed unnoticed and can be received again without creating duplicates.
+    noteLabel: Working title
+    noteValue: The Message Stick
+    useCases:
+      - title: Messages
+        text: A check-in, a short note or a question for the group.
+      - title: Treasure hunt
+        text: Checkpoints, clues and discoveries become a physical game with digital memory.
+      - title: CTF
+        text: Nodes exchange tokens when participants meet in the real world.
+  architecture:
+    index: 03 / Architecture
+    heading:
+      before: Radio in hand.
+      emphasis: Iroh in the hub.
+    intro: iroh is not a battery-powered radio mesh, and ESP32 is not a natural iroh runtime. The layers therefore have different jobs.
+    flow:
+      - label: ESP32 node
+        detail: button · screen · battery
+      - label: Local radio
+        detail: ESP-NOW or BLE
+      - label: Linux hub
+        detail: Rust · local log
+      - label: Iroh
+        detail: QUIC · synchronisation
+    roles:
+      - number: "A"
+        title: The node senses
+        text: ESP32 reads buttons and sensors, shows status and stores a small local queue.
+      - number: "B"
+        title: The hub remembers
+        text: A local Linux machine validates, deduplicates and preserves history without internet.
+      - number: "C"
+        title: Iroh connects
+        text: When two hubs can reach each other, new content is replicated securely and resumably.
+    limitationLabel: Important boundary
+    limitation: The first version uses a star topology around a hub. Multi-hop routing and LoRa come only after the basic chain is stable.
+  build:
+    index: 04 / The prototype
+    heading:
+      before: The smallest
+      emphasis: win first.
+    intro: We will not build the whole preparedness network in one evening. We build the shortest path from a button press to a history that still exists tomorrow.
+    hardware:
+      title: Hardware in the first track
+      items:
+        - ESP32-C6
+        - 2.9" e-ink
+        - 18650 or LiFePO4
+        - Raspberry Pi Zero 2 W
+        - SX1262 later
+    roadmap:
+      - step: "01"
+        title: The node wakes
+        text: Blink, button, screen and data that survives a restart.
+      - step: "02"
+        title: Radio works
+        text: Three nodes send to one hub through ESP-NOW.
+      - step: "03"
+        title: History is signed
+        text: Firmware and the Rust hub agree on a compact event format.
+      - step: "04"
+        title: Hubs synchronise
+        text: Two local hubs exchange history through iroh and survive interruptions.
+    warningLabel: Not in the first version
+    warning: Real-time voice, video, images over LoRa or a general-purpose internet mesh. First we need to send a small message all the way home.
+  docs:
+    index: 05 / The workbook
+    heading:
+      before: Built in the
+      emphasis: open.
+    intro: The direction, risks and next steps live in the project documents. They are written to be used in a workshop and changed when measurements begin.
+    cards:
+      - title: README
+        text: Purpose, architecture, hardware and the first milestone.
+        href: https://github.com/gihc-org/gihc-mesh/blob/main/README.md
+      - title: Analysis
+        text: Transport choices, data model, security and technical non-goals.
+        href: https://github.com/gihc-org/gihc-mesh/blob/main/ANALYSE.md
+      - title: TODO
+        text: A prioritised path from hardware spike to field test.
+        href: https://github.com/gihc-org/gihc-mesh/blob/main/TODO.md
+  join:
+    index: 06 / Join in
+    heading:
+      before: A network becomes fun
+      emphasis: when someone is on it.
+    lead: Mini-mesh is a project under GIHC. It develops in small iterations and should be explainable, buildable and debuggable by families and curious people together.
+    points:
+      - label: No experience needed
+        text: Curiosity is enough.
+      - label: Children and adults
+        text: build and test together.
+      - label: Local first
+        text: every cell can run its own hub.
+    github:
+      label: Follow GIHC on GitHub
+      href: https://github.com/gihc-org
+    contactLabel: Write to GIHC
+    contactHref: mailto:mail@gihc.online
+    contact: mail@gihc.online
+    parentLabel: About GIHC
+    parentHref: https://gihc.online/en/
+  footer:
+    tagline: A field project about small networks, clear boundaries and real experience.
+    credit: GIHC logo by Eva & Peter Nygaard
+    links:
+      - label: Back to top ↑
+        href: "#main"
+      - label: GIHC ↗
+        href: https://gihc.online/en/
+        external: true
+      - label: GitHub ↗
+        href: https://github.com/gihc-org
+        external: true

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gihc-mesh
+  namespace: gihc-mesh
+  labels:
+    app: gihc-mesh
+    app.kubernetes.io/name: gihc-mesh
+spec:
+  type: ClusterIP
+  selector:
+    app: gihc-mesh
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
+      protocol: TCP

@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: gihc-mesh
+  namespace: gihc-mesh
+  labels:
+    app: gihc-mesh
+    app.kubernetes.io/name: gihc-mesh
+spec:
+  podSelector:
+    matchLabels:
+      app: gihc-mesh
+  policyTypes:
+    - Ingress
+    - Egress
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 8080
+  egress: []

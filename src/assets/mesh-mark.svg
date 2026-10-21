@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" role="img" aria-labelledby="mark-title">
+  <title id="mark-title">Tre forbundne GIHC-knuder omkring en lokal hub</title>
+  <rect x="8" y="8" width="304" height="304" rx="76" fill="#fff9eb" stroke="#171812" stroke-width="6"/>
+  <circle cx="160" cy="160" r="92" fill="none" stroke="#315c47" stroke-width="3" stroke-dasharray="8 8"/>
+  <circle cx="160" cy="160" r="50" fill="#d8ff43" stroke="#171812" stroke-width="6"/>
+  <path d="M101 81 136 132M219 81l-35 51M116 245l28-54M204 245l-28-54" fill="none" stroke="#171812" stroke-width="5"/>
+  <circle cx="83" cy="66" r="24" fill="#ff6138" stroke="#171812" stroke-width="5"/>
+  <circle cx="237" cy="66" r="24" fill="#2e50f5" stroke="#171812" stroke-width="5"/>
+  <circle cx="160" cy="264" r="24" fill="#315c47" stroke="#171812" stroke-width="5"/>
+  <circle cx="160" cy="160" r="12" fill="#171812"/>
+  <path d="M142 160a18 18 0 0 1 36 0M134 160a26 26 0 0 1 52 0" fill="none" stroke="#171812" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="83" cy="66" r="6" fill="#fff9eb"/>
+  <circle cx="237" cy="66" r="6" fill="#fff9eb"/>
+  <circle cx="160" cy="264" r="6" fill="#fff9eb"/>
+</svg>

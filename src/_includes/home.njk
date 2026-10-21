@@ -1,0 +1,203 @@
+{% set copy = site[locale] %}
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-copy">
+      <p class="eyebrow">
+        <span class="eyebrow-badge">{{ copy.hero.eyebrowBadge }}</span>
+        <span class="eyebrow-note">{{ copy.hero.eyebrowNote }}</span>
+      </p>
+      <h1 id="hero-title">
+        {% for line in copy.hero.titleLines %}
+          <span{% if line.className %} class="{{ line.className }}"{% endif %}>{{ line.text }}</span>
+        {% endfor %}
+      </h1>
+      <p class="hero-intro">{{ copy.hero.intro }}</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="{{ copy.hero.primaryAction.href }}">
+          {{ copy.hero.primaryAction.label }}
+          <span aria-hidden="true">{{ copy.hero.primaryAction.icon }}</span>
+        </a>
+        <a class="text-link" href="{{ copy.hero.secondaryAction.href }}">{{ copy.hero.secondaryAction.label }} <span aria-hidden="true">{{ copy.hero.secondaryAction.icon }}</span></a>
+      </div>
+      <ul class="hero-facts" aria-label="{{ copy.status.label }}">
+        {% for fact in copy.hero.facts %}<li>{{ fact }}</li>{% endfor %}
+      </ul>
+    </div>
+
+    <div class="hero-poster">
+      <span class="poster-note">{{ copy.hero.poster.note }}</span>
+      <div class="node-map" aria-hidden="true">
+        <svg class="node-lines" viewBox="0 0 420 420">
+          <path d="M210 210 92 100M210 210l118-110M210 210 92 320M210 210l118 110M210 210v145"/>
+          <circle cx="210" cy="210" r="118" class="map-ring"></circle>
+          <circle cx="210" cy="210" r="160" class="map-ring map-ring-outer"></circle>
+        </svg>
+        <span class="map-node node-a">{{ copy.hero.poster.nodes[0] }}</span>
+        <span class="map-node node-b">{{ copy.hero.poster.nodes[1] }}</span>
+        <span class="map-node node-c">{{ copy.hero.poster.nodes[2] }}</span>
+        <span class="map-hub">
+          <img src="/assets/mesh-mark.svg" width="160" height="160" alt="">
+          <strong>{{ copy.hero.poster.center }}</strong>
+        </span>
+        <span class="map-radio">{{ copy.hero.poster.transport }}</span>
+        <span class="map-sync">{{ copy.hero.poster.sync }}</span>
+      </div>
+      <span class="poster-coordinate">{{ copy.hero.poster.coordinate }}</span>
+    </div>
+  </section>
+
+  <section class="status-strip" aria-label="{{ copy.status.label }}">
+    <div class="status-main">
+      <span>{{ copy.status.label }}</span>
+      <strong>{{ copy.status.value }}</strong>
+      <p>{{ copy.status.detail }}</p>
+    </div>
+    {% for fact in copy.status.facts %}
+      <div class="status-fact">
+        <span>{{ fact.label }}</span>
+        <strong>{{ fact.value }}</strong>
+      </div>
+    {% endfor %}
+  </section>
+
+  <section class="principles" id="ideen" aria-labelledby="principles-title">
+    <div class="section-heading">
+      <p class="section-index">{{ copy.principles.index }}</p>
+      <h2 id="principles-title">{{ copy.principles.heading.before }} <em>{{ copy.principles.heading.emphasis }}</em></h2>
+      <p>{{ copy.principles.intro }}</p>
+    </div>
+    <div class="principle-grid">
+      {% for card in copy.principles.cards %}
+        <article>
+          <span>{{ card.number }}</span>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="story" aria-labelledby="story-title">
+    <div class="story-heading">
+      <p class="section-index">{{ copy.story.index }}</p>
+      <h2 id="story-title">{{ copy.story.heading.before }} <em>{{ copy.story.heading.emphasis }}</em></h2>
+      <p class="story-lead">{{ copy.story.lead }}</p>
+    </div>
+    <div class="story-body">
+      <p>{{ copy.story.body }}</p>
+      <div class="story-note">
+        <span>{{ copy.story.noteLabel }}</span>
+        <strong>{{ copy.story.noteValue }}</strong>
+        <span aria-hidden="true">✳</span>
+      </div>
+      <div class="use-case-list">
+        {% for item in copy.story.useCases %}
+          <article>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.text }}</p>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="architecture" id="arkitektur" aria-labelledby="architecture-title">
+    <div class="section-heading section-heading-dark">
+      <p class="section-index">{{ copy.architecture.index }}</p>
+      <h2 id="architecture-title">{{ copy.architecture.heading.before }} <em>{{ copy.architecture.heading.emphasis }}</em></h2>
+      <p>{{ copy.architecture.intro }}</p>
+    </div>
+    <ol class="flow" aria-label="{{ copy.architecture.heading.before }} {{ copy.architecture.heading.emphasis }}">
+      {% for item in copy.architecture.flow %}
+        <li>
+          <span>{{ loop.index | padStart(2, "0") }}</span>
+          <strong>{{ item.label }}</strong>
+          <small>{{ item.detail }}</small>
+        </li>
+      {% endfor %}
+    </ol>
+    <div class="role-grid">
+      {% for role in copy.architecture.roles %}
+        <article>
+          <span>{{ role.number }}</span>
+          <h3>{{ role.title }}</h3>
+          <p>{{ role.text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+    <p class="limitation"><span>{{ copy.architecture.limitationLabel }}</span>{{ copy.architecture.limitation }}</p>
+  </section>
+
+  <section class="build" id="prototypen" aria-labelledby="build-title">
+    <div class="section-heading">
+      <p class="section-index">{{ copy.build.index }}</p>
+      <h2 id="build-title">{{ copy.build.heading.before }} <em>{{ copy.build.heading.emphasis }}</em></h2>
+      <p>{{ copy.build.intro }}</p>
+    </div>
+    <div class="build-grid">
+      <aside class="hardware">
+        <span class="card-kicker">{{ copy.build.index }}</span>
+        <h3>{{ copy.build.hardware.title }}</h3>
+        <ul>
+          {% for item in copy.build.hardware.items %}<li>{{ item }}</li>{% endfor %}
+        </ul>
+      </aside>
+      <div class="roadmap">
+        {% for item in copy.build.roadmap %}
+          <article>
+            <span>{{ item.step }}</span>
+            <div>
+              <h3>{{ item.title }}</h3>
+              <p>{{ item.text }}</p>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    </div>
+    <p class="boundary"><span>{{ copy.build.warningLabel }}</span>{{ copy.build.warning }}</p>
+  </section>
+
+  <section class="docs" aria-labelledby="docs-title">
+    <div class="section-heading">
+      <p class="section-index">{{ copy.docs.index }}</p>
+      <h2 id="docs-title">{{ copy.docs.heading.before }} <em>{{ copy.docs.heading.emphasis }}</em></h2>
+      <p>{{ copy.docs.intro }}</p>
+    </div>
+    <div class="doc-grid">
+      {% for card in copy.docs.cards %}
+        <a class="doc-card" href="{{ card.href }}" rel="external">
+          <span>{{ loop.index | padStart(2, "0") }}</span>
+          <h3>{{ card.title }}</h3>
+          <p>{{ card.text }}</p>
+          <strong aria-hidden="true">↗</strong>
+        </a>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="join" id="vaer-med" aria-labelledby="join-title">
+    <div class="join-heading">
+      <p class="section-index">{{ copy.join.index }}</p>
+      <h2 id="join-title">{{ copy.join.heading.before }} <em>{{ copy.join.heading.emphasis }}</em></h2>
+    </div>
+    <div class="join-copy">
+      <p class="join-lead">{{ copy.join.lead }}</p>
+      <ul>
+        {% for point in copy.join.points %}
+          <li><span>{{ point.label }}</span> {{ point.text }}</li>
+        {% endfor %}
+      </ul>
+      <div class="join-actions">
+        <a class="button button-dark" href="{{ copy.join.github.href }}" rel="external">
+          {{ copy.join.github.label }}
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a class="contact-link" href="{{ copy.join.contactHref }}">
+          <span>{{ copy.join.contactLabel }}</span>
+          <strong>{{ copy.join.contact }}</strong>
+        </a>
+        <a class="parent-link" href="{{ copy.join.parentHref }}" rel="external">{{ copy.join.parentLabel }} <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+  </section>
+</main>
