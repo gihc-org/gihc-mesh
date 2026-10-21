@@ -142,6 +142,8 @@ GitHub Actions bygger og scanner imageet til
 
 - [ANALYSE.md](ANALYSE.md): teknisk analyse, alternativer og risici
 - [TODO.md](TODO.md): prioriteret prototypeplan og milepæle
+- [INDKOB.md](INDKOB.md): indkøbsliste til den første hardware-prototype
+  ([læs også på mesh.gihc.online](https://mesh.gihc.online/indkob/))
 
 ## Relation til GIHC
 

@@ -3,6 +3,8 @@
 <html lang="{{ copy.meta.lang }}">
 <head>
   {% set canonicalUrl = canonical or (copy.meta.siteUrl + page.url) %}
+  {% set danishAlternate = alternateDa or "/" %}
+  {% set englishAlternate = alternateEn or "/en/" %}
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{{ title or copy.meta.title }}</title>
@@ -23,9 +25,9 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="{{ copy.meta.socialImage }}">
   <meta name="twitter:image:alt" content="{{ copy.meta.socialImageAlt }}">
-  <link rel="alternate" hreflang="da" href="{{ copy.meta.siteUrl }}/">
-  <link rel="alternate" hreflang="en" href="{{ copy.meta.siteUrl }}/en/">
-  <link rel="alternate" hreflang="x-default" href="{{ copy.meta.siteUrl }}/">
+  <link rel="alternate" hreflang="da" href="{{ copy.meta.siteUrl }}{{ danishAlternate }}">
+  <link rel="alternate" hreflang="en" href="{{ copy.meta.siteUrl }}{{ englishAlternate }}">
+  <link rel="alternate" hreflang="x-default" href="{{ copy.meta.siteUrl }}{{ danishAlternate }}">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
@@ -45,7 +47,7 @@
         {% for item in copy.nav %}
           <a href="{{ item.href }}"{% if item.className %} class="{{ item.className }}"{% endif %}>{{ item.label }}</a>
         {% endfor %}
-        <a class="language-switch" href="{{ copy.languageSwitch.href }}" lang="{{ copy.languageSwitch.lang }}" hreflang="{{ copy.languageSwitch.lang }}" aria-label="{{ copy.languageSwitch.ariaLabel }}">{{ copy.languageSwitch.label }} <span aria-hidden="true">↗</span></a>
+        <a class="language-switch" href="{{ languageSwitchHref or copy.languageSwitch.href }}" lang="{{ copy.languageSwitch.lang }}" hreflang="{{ copy.languageSwitch.lang }}" aria-label="{{ copy.languageSwitch.ariaLabel }}">{{ copy.languageSwitch.label }} <span aria-hidden="true">↗</span></a>
       </nav>
     {% endif %}
   </header>

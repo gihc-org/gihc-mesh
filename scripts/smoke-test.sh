@@ -21,6 +21,8 @@ echo "==> Tester ${BASE_URL}"
 
 curl -fsS --max-time 20 "${BASE_URL}/" -o "${TMP_DIR}/index.html"
 curl -fsS --max-time 20 "${BASE_URL}/en/" -o "${TMP_DIR}/index-en.html"
+curl -fsS --max-time 20 "${BASE_URL}/indkob/" -o "${TMP_DIR}/indkob.html"
+curl -fsS --max-time 20 "${BASE_URL}/en/indkob/" -o "${TMP_DIR}/indkob-en.html"
 curl -fsS --max-time 20 "${BASE_URL}/assets/mesh-mark.svg" \
     -o "${TMP_DIR}/mesh-mark.svg" \
     -D "${TMP_DIR}/mark-headers.txt"
@@ -50,6 +52,20 @@ grep -q 'href="/"' "${TMP_DIR}/index-en.html" \
     || fail "sprogskift til dansk mangler"
 grep -q 'href="/en/"' "${TMP_DIR}/index.html" \
     || fail "sprogskift til engelsk mangler"
+grep -q '<title>Indkøbsliste — GIHC Mini-Mesh</title>' "${TMP_DIR}/indkob.html" \
+    || fail "den danske indkøbsside mangler"
+grep -q '1.600-2.700 kr.' "${TMP_DIR}/indkob.html" \
+    || fail "kernekøbets prisinterval mangler"
+grep -q 'ESP32-C6-DevKitC-1' "${TMP_DIR}/indkob.html" \
+    || fail "ESP32-C6-delen mangler på indkøbssiden"
+grep -q 'href="/en/indkob/"' "${TMP_DIR}/indkob.html" \
+    || fail "sprogskift på den danske indkøbsside mangler"
+grep -q '<title>Shopping list — GIHC Mini-Mesh</title>' "${TMP_DIR}/indkob-en.html" \
+    || fail "den engelske indkøbsside mangler"
+grep -q 'DKK 1,600-2,700' "${TMP_DIR}/indkob-en.html" \
+    || fail "det engelske prisinterval mangler"
+grep -q 'href="/indkob/"' "${TMP_DIR}/indkob-en.html" \
+    || fail "sprogskift på den engelske indkøbsside mangler"
 grep -qi '^content-type: image/svg+xml' "${TMP_DIR}/mark-headers.txt" \
     || fail "mesh-mark serveres ikke som image/svg+xml"
 grep -q '<svg' "${TMP_DIR}/mesh-mark.svg" \
@@ -81,4 +97,4 @@ if [[ "$BASE_URL" == https://* ]]; then
         || fail "TLS-certifikatet kunne ikke verificeres"
 fi
 
-echo "PASS: dansk og engelsk forside, diagram, dokumentlinks, health, 404, sikkerhedsheadere og TLS er OK"
+echo "PASS: dansk og engelsk forside og indkøbsside, diagram, dokumentlinks, health, 404, sikkerhedsheadere og TLS er OK"

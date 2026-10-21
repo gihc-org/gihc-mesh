@@ -945,7 +945,7 @@ svg {
 
 .doc-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--ink);
   border-left: 1px solid var(--ink);
 }
@@ -991,6 +991,237 @@ svg {
   right: 1.3rem;
   font-family: var(--mono);
   font-size: 1.2rem;
+}
+
+.inventory-main {
+  background:
+    radial-gradient(circle at 88% 4%, rgba(46, 80, 245, 0.1), transparent 28rem),
+    var(--paper);
+}
+
+.inventory-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+  gap: clamp(2rem, 7vw, 8rem);
+  align-items: center;
+  min-height: calc(100vh - 7.5rem);
+  padding: clamp(4rem, 9vw, 9rem) var(--page-pad);
+  border-bottom: 1px solid var(--ink);
+}
+
+.inventory-hero h1 {
+  max-width: 10ch;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(4rem, 8.5vw, 9rem);
+  font-weight: 400;
+  letter-spacing: -0.075em;
+  line-height: 0.86;
+}
+
+.inventory-hero h1 em,
+.inventory-section .section-heading h2 em {
+  color: var(--blue);
+  font-weight: 400;
+}
+
+.inventory-intro {
+  max-width: 45rem;
+  margin: 2rem 0 0;
+  font-size: clamp(1.05rem, 1.55vw, 1.32rem);
+}
+
+.inventory-total {
+  position: relative;
+  border: 1px solid var(--ink);
+  background: var(--acid);
+  padding: clamp(1.5rem, 3.5vw, 3rem);
+  box-shadow: 7px 7px 0 var(--ink);
+  transform: rotate(-1deg);
+}
+
+.inventory-total span {
+  font-family: var(--mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.inventory-total strong {
+  display: block;
+  margin: 2.5rem 0 1rem;
+  font-family: var(--display);
+  font-size: clamp(2.8rem, 5vw, 5.4rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.9;
+}
+
+.inventory-total p {
+  max-width: 28rem;
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.inventory-section {
+  padding: clamp(4.5rem, 9vw, 9rem) var(--page-pad);
+  border-bottom: 1px solid var(--ink);
+}
+
+.inventory-section-alt {
+  background: var(--cream);
+}
+
+.shopping-table-wrap {
+  overflow-x: auto;
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+  background: var(--cream);
+}
+
+.shopping-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.shopping-table th,
+.shopping-table td {
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding: 1rem 1.15rem;
+  vertical-align: top;
+}
+
+.shopping-table thead th {
+  background: var(--paper-deep);
+  font-family: var(--mono);
+  font-size: 0.63rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.shopping-table tbody th {
+  width: 20%;
+  font-family: var(--display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  letter-spacing: -0.03em;
+}
+
+.shopping-table tbody td {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.shopping-table tbody td:nth-child(2),
+.shopping-table tbody td:nth-child(3) {
+  white-space: nowrap;
+}
+
+.shopping-table tbody tr:last-child th,
+.shopping-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.inventory-note {
+  max-width: 58rem;
+  margin: 1.5rem 0 0;
+  border-left: 5px solid var(--orange);
+  padding-left: 1rem;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.inventory-card-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 1px solid var(--ink);
+  border-left: 1px solid var(--ink);
+}
+
+.inventory-card-grid article {
+  min-height: 18rem;
+  padding: clamp(1.4rem, 2.5vw, 2.2rem);
+  border-right: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.inventory-card-grid article > span {
+  display: grid;
+  width: 2rem;
+  aspect-ratio: 1;
+  place-items: center;
+  border: 1px solid var(--ink);
+  background: var(--orange);
+  font-family: var(--mono);
+  font-weight: 700;
+}
+
+.inventory-card-grid h3 {
+  margin: 5rem 0 0.8rem;
+  font-family: var(--display);
+  font-size: clamp(1.7rem, 2.5vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.inventory-card-grid p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.inventory-check {
+  padding: clamp(4.5rem, 9vw, 9rem) var(--page-pad);
+  background:
+    radial-gradient(circle at 90% 10%, rgba(216, 255, 67, 0.13), transparent 24rem),
+    var(--ink);
+  color: var(--paper);
+}
+
+.inventory-check h2 {
+  max-width: 12ch;
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(3rem, 6vw, 6.4rem);
+  font-weight: 400;
+  letter-spacing: -0.065em;
+  line-height: 0.92;
+}
+
+.inventory-check h2 em {
+  color: var(--acid);
+  font-weight: 400;
+}
+
+.inventory-checklist {
+  max-width: 58rem;
+  margin: 3.5rem 0;
+  padding: 0;
+  border-top: 1px solid var(--line-light);
+  counter-reset: checklist;
+  list-style: none;
+}
+
+.inventory-checklist li {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line-light);
+  padding: 1rem 0;
+  counter-increment: checklist;
+}
+
+.inventory-checklist li::before {
+  color: var(--acid);
+  content: counter(checklist, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 0.7rem;
 }
 
 .join {
@@ -1237,6 +1468,20 @@ svg {
     grid-template-columns: 1fr;
   }
 
+  .inventory-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+
+  .inventory-total {
+    max-width: 34rem;
+  }
+
+  .doc-grid,
+  .inventory-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .join-heading h2 {
     max-width: 12ch;
   }
@@ -1319,8 +1564,79 @@ svg {
   .principle-grid,
   .role-grid,
   .use-case-list,
-  .doc-grid {
+  .doc-grid,
+  .inventory-card-grid {
     grid-template-columns: 1fr;
+  }
+
+  .inventory-hero {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  .inventory-hero h1 {
+    font-size: clamp(3.5rem, 15vw, 5.4rem);
+  }
+
+  .inventory-total {
+    transform: none;
+  }
+
+  .shopping-table-wrap {
+    overflow: visible;
+    border: 0;
+    background: transparent;
+  }
+
+  .shopping-table,
+  .shopping-table tbody,
+  .shopping-table tr,
+  .shopping-table th,
+  .shopping-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .shopping-table thead {
+    display: none;
+  }
+
+  .shopping-table tr {
+    margin-bottom: 1.2rem;
+    border-top: 1px solid var(--ink);
+    border-left: 1px solid var(--ink);
+    background: var(--cream);
+  }
+
+  .shopping-table tbody th,
+  .shopping-table tbody td {
+    width: 100%;
+    border-right: 1px solid var(--ink);
+    border-bottom: 1px solid var(--ink);
+    white-space: normal;
+  }
+
+  .shopping-table tbody th {
+    font-size: 1.55rem;
+  }
+
+  .shopping-table tbody td::before {
+    display: block;
+    margin-bottom: 0.2rem;
+    color: var(--ink);
+    content: attr(data-label);
+    font-family: var(--mono);
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .inventory-card-grid article {
+    min-height: 14rem;
+  }
+
+  .inventory-card-grid h3 {
+    margin-top: 3rem;
   }
 
   .principle-grid article {

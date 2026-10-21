@@ -26,13 +26,15 @@ da:
     logo: /assets/gihc-emblem.svg
   nav:
     - label: Idéen
-      href: "#ideen"
+      href: "/#ideen"
     - label: Arkitektur
-      href: "#arkitektur"
+      href: "/#arkitektur"
     - label: Prototypen
-      href: "#prototypen"
+      href: "/#prototypen"
+    - label: Indkøb
+      href: /indkob/
     - label: Vær med
-      href: "#vaer-med"
+      href: "/#vaer-med"
       className: nav-cta
   hero:
     eyebrowBadge: Et GIHC-eksperiment
@@ -180,6 +182,125 @@ da:
       - title: TODO
         text: En prioriteret vej fra hardware-spike til felt-test.
         href: https://github.com/gihc-org/gihc-mesh/blob/main/TODO.md
+      - title: Indkøb
+        text: Dele, mængder og rækkefølge til den første fysiske prototype.
+        href: /indkob/
+  inventory:
+    kicker: Arbejdsbog / Indkøb
+    heading:
+      before: Det første
+      emphasis: byggesæt.
+    intro: En lille, sikker og gennemskuelig indkøbsliste til tre ESP32-knuder. Der er taget en ekstra knude med som reservedel, så fejlfinding ikke stopper, når den første prototype skal op at køre.
+    facts:
+      - Tre knuder
+      - Én reservedel
+      - USB før batteri
+    totalLabel: Vejledende kernekøb
+    totalValue: 1.600-2.700 kr.
+    totalNote: Udvalgte elektronikdele uden fragt, værktøj og senere feltstrøm.
+    core:
+      index: 01 / Kernekøb
+      heading:
+        before: Bestil
+        emphasis: det nu.
+      intro: Priserne er vejledende danske detailpriser i DKK. Kontrollér lager, revision og datablad før bestilling.
+      itemLabel: Del
+      quantityLabel: Antal
+      priceLabel: Vejledende pris
+      noteLabel: Krav og bemærkning
+      items:
+        - item: ESP32-C6-DevKitC-1
+          quantity: "4"
+          price: 400-640 kr.
+          note: Samme variant, helst 8 MB flash. Bekræft pinout og Rust/ESP-IDF-support.
+        - item: 2,9" e-Paper Module
+          quantity: "4"
+          price: 720-1.200 kr.
+          note: Sort/hvid, 296×128, SPI og 3,3 V-logik. Modul med driver og datablad, ikke et bart panel.
+        - item: Breadboard
+          quantity: "4"
+          price: 100-160 kr.
+          note: Mindst 400 forbindelsespunkter.
+        - item: Dupont-ledninger
+          quantity: 2 sæt
+          price: 80-140 kr.
+          note: Blandet han-han, han-hun og hun-hun.
+        - item: USB-C-kabel
+          quantity: "4"
+          price: 120-200 kr.
+          note: Data- og strømkabel, ikke kun opladning.
+        - item: Tactile-knapper
+          quantity: "10"
+          price: 20-40 kr.
+          note: 12 mm gennemgående, momentan og NO.
+        - item: Pinheaders
+          quantity: 1 pakke
+          price: 20-40 kr.
+          note: 2,54 mm han og hun til moduler uden monterede pins.
+        - item: Passive buzzere
+          quantity: "4"
+          price: 20-40 kr.
+          note: 3,3-5 V til lydfeedback. Kan udelades i første test.
+        - item: Modstandssortiment
+          quantity: 1 sæt
+          price: 50-100 kr.
+          note: Almindelige 1/4 W-modstande, især 220 Ω, 1 kΩ og 10 kΩ.
+        - item: Standoffs og montering
+          quantity: 1 sæt
+          price: 80-150 kr.
+          note: M2/M3 til at holde devkit og display uden løse ledninger.
+    power:
+      index: 02 / Strøm og måling
+      heading:
+        before: Mål før
+        emphasis: du køber batteri.
+      intro: Begynd over USB, indtil pinout og strømforbrug er kendt. Et batteri er ikke nødvendigt for blink-, display- og radiotesten.
+      itemLabel: Del
+      quantityLabel: Antal
+      priceLabel: Vejledende pris
+      noteLabel: Krav og bemærkning
+      items:
+        - item: USB-strømforsyning
+          quantity: "2"
+          price: 100-200 kr.
+          note: 5 V, mindst 2 A og certificeret. Køb kun, hvis den ikke findes i forvejen.
+        - item: USB-power-meter
+          quantity: "1"
+          price: 100-200 kr.
+          note: Kan vise spænding, strøm og akkumuleret energi.
+        - item: Multimeter
+          quantity: "1"
+          price: 300-800 kr.
+          note: Skal kunne måle µA og mA med et rimeligt lavt spændingsfald.
+      note: Et professionelt strømprofilværktøj som Nordic Power Profiler Kit II er bedre til deep-sleep-målinger, men ikke nødvendigt for den første bring-up.
+    later:
+      index: 03 / Vent med
+      heading:
+        before: Køb ikke
+        emphasis: alt på én gang.
+      intro: Feltstrøm, LoRa og en dedikeret hub giver først mening, når de første målinger og beslutninger foreligger.
+      items:
+        - title: Batteri og solcelle
+          text: Vent til aktiv strøm, deep sleep og e-ink-forbrug er målt. Undgå ubeskyttede celler og billige opladermoduler.
+        - title: SX1262 og LoRa
+          text: Vent til modulvalg og kontrol af danske/EU-regler for 868 MHz, antenne og duty cycle.
+        - title: Raspberry Pi-hub
+          text: Brug en eksisterende laptop eller mini-PC først. Køb kun en ny hub, hvis der faktisk mangler en permanent maskine.
+        - title: Specialprint
+          text: Bliv på breadboard og udviklingsboards, indtil pinout, strøm og mekanik er verificeret.
+    checklist:
+      index: 04 / Før bestilling
+      heading:
+        before: Fem ting at
+        emphasis: kontrollere.
+      items:
+        - Vælg én ESP32-C6-model og notér præcis vare-SKU.
+        - Vælg én e-ink-model og kontrollér controller, opløsning og eksisterende driverbibliotek.
+        - Kontrollér at e-ink-modulet kan bruge 3,3 V-logik sammen med ESP32-C6.
+        - Kontrollér lagerstatus, og at samme revision kan genbestilles.
+        - Vælg en leverandør med datablad og returret frem for en anonym markedspladsliste uden modelnummer.
+    sourceLabel: Se den detaljerede kilde på GitHub
+    sourceHref: https://github.com/gihc-org/gihc-mesh/blob/main/INDKOB.md
   join:
     index: 06 / Vær med
     heading:
@@ -241,13 +362,15 @@ en:
     logo: /assets/gihc-emblem.svg
   nav:
     - label: The idea
-      href: "#ideen"
+      href: "/en/#ideen"
     - label: Architecture
-      href: "#arkitektur"
+      href: "/en/#arkitektur"
     - label: Prototype
-      href: "#prototypen"
+      href: "/en/#prototypen"
+    - label: Shopping list
+      href: /en/indkob/
     - label: Join in
-      href: "#vaer-med"
+      href: "/en/#vaer-med"
       className: nav-cta
   hero:
     eyebrowBadge: A GIHC experiment
@@ -395,6 +518,125 @@ en:
       - title: TODO
         text: A prioritised path from hardware spike to field test.
         href: https://github.com/gihc-org/gihc-mesh/blob/main/TODO.md
+      - title: Shopping list
+        text: Parts, quantities and order for the first physical prototype.
+        href: /en/indkob/
+  inventory:
+    kicker: Workbook / Shopping list
+    heading:
+      before: The first
+      emphasis: build kit.
+    intro: A small, safe and understandable shopping list for three ESP32 nodes. It includes one spare node so troubleshooting does not stop when the first prototype needs to come alive.
+    facts:
+      - Three nodes
+      - One spare
+      - USB before batteries
+    totalLabel: Estimated core purchase
+    totalValue: DKK 1,600-2,700
+    totalNote: Selected electronics before shipping, tools and later field power.
+    core:
+      index: 01 / Core purchase
+      heading:
+        before: Order
+        emphasis: it now.
+      intro: Prices are indicative Danish retail prices in DKK. Check availability, revision and datasheets before ordering.
+      itemLabel: Part
+      quantityLabel: Quantity
+      priceLabel: Estimated price
+      noteLabel: Requirement and note
+      items:
+        - item: ESP32-C6-DevKitC-1
+          quantity: "4"
+          price: DKK 400-640
+          note: Same variant, preferably 8 MB flash. Confirm pinout and Rust/ESP-IDF support.
+        - item: 2.9" e-Paper Module
+          quantity: "4"
+          price: DKK 720-1,200
+          note: Black and white, 296×128, SPI and 3.3 V logic. A module with driver and datasheet, not a bare panel.
+        - item: Breadboard
+          quantity: "4"
+          price: DKK 100-160
+          note: At least 400 connection points.
+        - item: Dupont wires
+          quantity: 2 sets
+          price: DKK 80-140
+          note: Mixed male-male, male-female and female-female.
+        - item: USB-C cable
+          quantity: "4"
+          price: DKK 120-200
+          note: Data and power cable, not charging only.
+        - item: Tactile buttons
+          quantity: "10"
+          price: DKK 20-40
+          note: 12 mm through-hole, momentary and normally open.
+        - item: Pin headers
+          quantity: 1 pack
+          price: DKK 20-40
+          note: 2.54 mm male and female for modules without soldered pins.
+        - item: Passive buzzers
+          quantity: "4"
+          price: DKK 20-40
+          note: 3.3-5 V for audible feedback. Optional in the first test.
+        - item: Resistor assortment
+          quantity: 1 set
+          price: DKK 50-100
+          note: Common 1/4 W resistors, especially 220 Ω, 1 kΩ and 10 kΩ.
+        - item: Standoffs and mounting
+          quantity: 1 set
+          price: DKK 80-150
+          note: M2/M3 for mounting the devkit and display without loose wires.
+    power:
+      index: 02 / Power and measurement
+      heading:
+        before: Measure before
+        emphasis: buying batteries.
+      intro: Start over USB until pinout and power consumption are known. A battery is not needed for the blink, display and radio tests.
+      itemLabel: Part
+      quantityLabel: Quantity
+      priceLabel: Estimated price
+      noteLabel: Requirement and note
+      items:
+        - item: USB power supply
+          quantity: "2"
+          price: DKK 100-200
+          note: 5 V, at least 2 A and certified. Buy only if not already available.
+        - item: USB power meter
+          quantity: "1"
+          price: DKK 100-200
+          note: Displays voltage, current and accumulated energy.
+        - item: Multimeter
+          quantity: "1"
+          price: DKK 300-800
+          note: Must measure µA and mA with reasonably low burden voltage.
+      note: A professional power profiler such as Nordic Power Profiler Kit II is better for deep-sleep measurements, but not required for the first bring-up.
+    later:
+      index: 03 / Wait with
+      heading:
+        before: Do not buy
+        emphasis: everything at once.
+      intro: Field power, LoRa and a dedicated hub only make sense after the first measurements and decisions.
+      items:
+        - title: Batteries and solar
+          text: Wait until active current, deep sleep and e-ink consumption are measured. Avoid unprotected cells and cheap charging modules.
+        - title: SX1262 and LoRa
+          text: Wait for module selection and checks of Danish/EU rules for 868 MHz, antennas and duty cycle.
+        - title: Raspberry Pi hub
+          text: Use an existing laptop or mini-PC first. Buy a new hub only if a permanent machine is actually missing.
+        - title: Custom PCB
+          text: Stay on breadboards and development boards until pinout, power and mechanics are verified.
+    checklist:
+      index: 04 / Before ordering
+      heading:
+        before: Five things to
+        emphasis: check.
+      items:
+        - Choose one ESP32-C6 model and record its exact part number.
+        - Choose one e-ink model and confirm controller, resolution and existing driver support.
+        - Confirm that the e-ink module works with 3.3 V logic together with the ESP32-C6.
+        - Check stock and that the same revision can be reordered.
+        - Prefer a supplier with datasheets and returns over an anonymous marketplace listing without a model number.
+    sourceLabel: View the detailed source on GitHub
+    sourceHref: https://github.com/gihc-org/gihc-mesh/blob/main/INDKOB.md
   join:
     index: 06 / Join in
     heading:

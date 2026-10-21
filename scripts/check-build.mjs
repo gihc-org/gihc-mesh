@@ -6,6 +6,8 @@ const outputDir = "_site";
 const requiredFiles = [
   "index.html",
   "en/index.html",
+  "indkob/index.html",
+  "en/indkob/index.html",
   "404.html",
   "assets/styles.css",
   "assets/favicon.svg",
@@ -20,6 +22,8 @@ for (const file of requiredFiles) {
 
 const index = await readFile(path.join(outputDir, "index.html"), "utf8");
 const englishIndex = await readFile(path.join(outputDir, "en/index.html"), "utf8");
+const shopping = await readFile(path.join(outputDir, "indkob/index.html"), "utf8");
+const englishShopping = await readFile(path.join(outputDir, "en/indkob/index.html"), "utf8");
 const notFound = await readFile(path.join(outputDir, "404.html"), "utf8");
 
 const expectations = [
@@ -36,8 +40,13 @@ const expectations = [
   ["socialt previewbillede", index.includes('property="og:image" content="https://mesh.gihc.online/assets/mesh-og.png"') && index.includes('property="og:image:width" content="1200"') && index.includes('property="og:image:height" content="630"')],
   ["Twitter-previewbillede", index.includes('name="twitter:image" content="https://mesh.gihc.online/assets/mesh-og.png"')],
   ["dokumentlinks", index.includes("github.com/gihc-org/gihc-mesh/blob/main/README.md") && index.includes("ANALYSE.md") && index.includes("TODO.md")],
+  ["link til indkøbssiden", index.includes('href="/indkob/"')],
+  ["dansk indkøbsside", shopping.includes("<title>Indkøbsliste — GIHC Mini-Mesh</title>") && shopping.includes("1.600-2.700 kr.") && shopping.includes("ESP32-C6-DevKitC-1")],
+  ["engelsk indkøbsside", englishShopping.includes("<title>Shopping list — GIHC Mini-Mesh</title>") && englishShopping.includes("DKK 1,600-2,700") && englishShopping.includes("ESP32-C6-DevKitC-1")],
+  ["indkøbssidens sprogskift", shopping.includes('href="/en/indkob/"') && englishShopping.includes('href="/indkob/"')],
+  ["indkøbssidens canonical", shopping.includes('<link rel="canonical" href="https://mesh.gihc.online/indkob/">') && englishShopping.includes('<link rel="canonical" href="https://mesh.gihc.online/en/indkob/">')],
   ["404-indhold", notFound.includes("Knuden findes ikke.")],
-  ["ingen Nunjucks-rester", !index.includes("{{") && !index.includes("{%") && !englishIndex.includes("{{") && !englishIndex.includes("{%")]
+  ["ingen Nunjucks-rester", [index, englishIndex, shopping, englishShopping].every((html) => !html.includes("{{") && !html.includes("{%"))]
 ];
 
 for (const [label, passed] of expectations) {
@@ -46,7 +55,12 @@ for (const [label, passed] of expectations) {
   }
 }
 
-for (const [name, html] of [["dansk", index], ["engelsk", englishIndex]]) {
+for (const [name, html] of [
+  ["dansk", index],
+  ["engelsk", englishIndex],
+  ["dansk indkøb", shopping],
+  ["engelsk indkøb", englishShopping]
+]) {
   const ids = [...html.matchAll(/\sid="([^"]+)"/g)].map((match) => match[1]);
   const duplicateIds = ids.filter((id, index) => ids.indexOf(id) !== index);
   if (duplicateIds.length > 0) {

@@ -1,0 +1,110 @@
+{% set copy = site[locale] %}
+{% set shopping = copy.inventory %}
+<main id="main" class="inventory-main">
+  <section class="inventory-hero" aria-labelledby="inventory-title">
+    <div class="inventory-hero-copy">
+      <p class="section-index">{{ shopping.kicker }}</p>
+      <h1 id="inventory-title">{{ shopping.heading.before }} <em>{{ shopping.heading.emphasis }}</em></h1>
+      <p class="inventory-intro">{{ shopping.intro }}</p>
+      <ul class="hero-facts">
+        {% for fact in shopping.facts %}<li>{{ fact }}</li>{% endfor %}
+      </ul>
+    </div>
+    <aside class="inventory-total" aria-label="{{ shopping.totalLabel }}">
+      <span>{{ shopping.totalLabel }}</span>
+      <strong>{{ shopping.totalValue }}</strong>
+      <p>{{ shopping.totalNote }}</p>
+    </aside>
+  </section>
+
+  <section class="inventory-section" aria-labelledby="core-title">
+    <div class="section-heading">
+      <p class="section-index">{{ shopping.core.index }}</p>
+      <h2 id="core-title">{{ shopping.core.heading.before }} <em>{{ shopping.core.heading.emphasis }}</em></h2>
+      <p>{{ shopping.core.intro }}</p>
+    </div>
+    <div class="shopping-table-wrap">
+      <table class="shopping-table">
+        <thead>
+          <tr>
+            <th scope="col">{{ shopping.core.itemLabel }}</th>
+            <th scope="col">{{ shopping.core.quantityLabel }}</th>
+            <th scope="col">{{ shopping.core.priceLabel }}</th>
+            <th scope="col">{{ shopping.core.noteLabel }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in shopping.core.items %}
+            <tr>
+              <th scope="row" data-label="{{ shopping.core.itemLabel }}">{{ item.item }}</th>
+              <td data-label="{{ shopping.core.quantityLabel }}">{{ item.quantity }}</td>
+              <td data-label="{{ shopping.core.priceLabel }}">{{ item.price }}</td>
+              <td data-label="{{ shopping.core.noteLabel }}">{{ item.note }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="inventory-section inventory-section-alt" aria-labelledby="power-title">
+    <div class="section-heading">
+      <p class="section-index">{{ shopping.power.index }}</p>
+      <h2 id="power-title">{{ shopping.power.heading.before }} <em>{{ shopping.power.heading.emphasis }}</em></h2>
+      <p>{{ shopping.power.intro }}</p>
+    </div>
+    <div class="shopping-table-wrap">
+      <table class="shopping-table">
+        <thead>
+          <tr>
+            <th scope="col">{{ shopping.power.itemLabel }}</th>
+            <th scope="col">{{ shopping.power.quantityLabel }}</th>
+            <th scope="col">{{ shopping.power.priceLabel }}</th>
+            <th scope="col">{{ shopping.power.noteLabel }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in shopping.power.items %}
+            <tr>
+              <th scope="row" data-label="{{ shopping.power.itemLabel }}">{{ item.item }}</th>
+              <td data-label="{{ shopping.power.quantityLabel }}">{{ item.quantity }}</td>
+              <td data-label="{{ shopping.power.priceLabel }}">{{ item.price }}</td>
+              <td data-label="{{ shopping.power.noteLabel }}">{{ item.note }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="inventory-note">{{ shopping.power.note }}</p>
+  </section>
+
+  <section class="inventory-section" aria-labelledby="later-title">
+    <div class="section-heading">
+      <p class="section-index">{{ shopping.later.index }}</p>
+      <h2 id="later-title">{{ shopping.later.heading.before }} <em>{{ shopping.later.heading.emphasis }}</em></h2>
+      <p>{{ shopping.later.intro }}</p>
+    </div>
+    <div class="inventory-card-grid">
+      {% for item in shopping.later.items %}
+        <article>
+          <span aria-hidden="true">×</span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.text }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="inventory-check" aria-labelledby="checklist-title">
+    <div>
+      <p class="section-index">{{ shopping.checklist.index }}</p>
+      <h2 id="checklist-title">{{ shopping.checklist.heading.before }} <em>{{ shopping.checklist.heading.emphasis }}</em></h2>
+      <ol class="inventory-checklist">
+        {% for item in shopping.checklist.items %}<li>{{ item }}</li>{% endfor %}
+      </ol>
+      <a class="button button-dark" href="{{ shopping.sourceHref }}" rel="external">
+        {{ shopping.sourceLabel }} <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
+</main>
